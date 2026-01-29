@@ -17,7 +17,9 @@ public class WebConfig {
         CorsConfiguration config = new CorsConfiguration();
 
         // Allow your React app origin
-        config.setAllowedOrigins(Arrays.asList("http://localhost:5173", "http://localhost:3000"));
+        config.setAllowedOrigins(Arrays.asList("http://localhost:5173",
+                "http://localhost:3000"
+                ));
 
         // Allow all methods
         config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));

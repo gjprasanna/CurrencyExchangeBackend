@@ -45,6 +45,9 @@ public class ConversionResponse {
     private BigDecimal spread;
     private String pnlStatus;
 
+    // **NEW FIELD**: Margin Value = Transaction Amount × Margin Spread
+    private BigDecimal marginValue;
+
     private LocalDate tradingDate;
 
     // Constructors
@@ -117,6 +120,9 @@ public class ConversionResponse {
 
     public String getPnlStatus() { return pnlStatus; }
     public void setPnlStatus(String pnlStatus) { this.pnlStatus = pnlStatus; }
+
+    public BigDecimal getMarginValue() { return marginValue; }
+    public void setMarginValue(BigDecimal marginValue) { this.marginValue = marginValue; }
 }
 
 
