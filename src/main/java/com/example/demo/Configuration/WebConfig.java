@@ -18,7 +18,8 @@ public class WebConfig {
 
         // Allow your React app origin
         config.setAllowedOrigins(Arrays.asList("http://localhost:5173",
-                "http://localhost:3000"
+                "http://localhost:3000",
+                "https://currency-exchange01.netlify.app"
                 ));
 
         // Allow all methods

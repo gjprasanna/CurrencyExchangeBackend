@@ -2,6 +2,7 @@ package com.example.demo.modal;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
+import java.math.BigDecimal;
 @Entity
 @Table(name = "currency_positions")
 public class CurrencyPosition {
@@ -18,6 +19,10 @@ public class CurrencyPosition {
 
     @Column(name = "last_updated")
     private LocalDateTime lastUpdated;
+
+
+    @Column(name = "amount", nullable = true, precision = 19, scale = 2)
+    private BigDecimal amount = BigDecimal.ZERO;
 
     // Constructors
     public CurrencyPosition() {
@@ -55,11 +60,24 @@ public class CurrencyPosition {
         this.positionStatus = positionStatus;
     }
 
+    public BigDecimal getAmount() {
+        return amount;
+    }
+
+    public void setAmount(BigDecimal amount) {
+        this.amount = amount;
+    }
+
     public LocalDateTime getLastUpdated() {
         return lastUpdated;
     }
 
     public void setLastUpdated(LocalDateTime lastUpdated) {
         this.lastUpdated = lastUpdated;
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        this.lastUpdated = LocalDateTime.now();
     }
 }
