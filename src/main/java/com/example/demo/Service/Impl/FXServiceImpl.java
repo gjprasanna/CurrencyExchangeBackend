@@ -105,9 +105,20 @@ public class FXServiceImpl implements FXService {
         // 9. Final Conversion Amount (Buy/Sell ratio)
         BigDecimal conversionRatio = buyCcy.getBnrrate()
                 .divide(sellCcy.getBnrrate(), 10, RoundingMode.HALF_UP);
-        BigDecimal finalAmount = request.getAmount()
-                .multiply(conversionRatio)
-                .setScale(2, RoundingMode.HALF_UP);
+//        BigDecimal finalAmount = request.getAmount()
+//                .multiply(conversionRatio)
+//                .setScale(2, RoundingMode.HALF_UP);
+
+        // logic to calculate final payout based on Customer Deal Rate
+        BigDecimal finalAmount;
+
+
+        if (sellCcy.getBnrrate().compareTo(buyCcy.getBnrrate()) >= 0) {
+            finalAmount = request.getAmount().divide(finalRate, 2, RoundingMode.HALF_UP);
+        } else {
+            finalAmount = request.getAmount().multiply(finalRate);
+        }
+
 
         log.info("Conversion completed: {} {} = {} {}",
                 request.getAmount(), request.getSellCode(),
@@ -121,7 +132,7 @@ public class FXServiceImpl implements FXService {
         response.setSellCode(request.getSellCode());
         response.setInputAmount(request.getAmount());
         response.setConversionRate(conversionRatio.setScale(6, RoundingMode.HALF_UP));
-        response.setFinalAmount(finalAmount);
+        response.setFinalAmount(finalAmount.setScale(2, RoundingMode.HALF_UP));
         response.setBuyCustomerRate(buyT24Today);
         response.setSellCustomerRate(sellT24Today);
 
